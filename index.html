@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>grumpy-editor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="_center">
+            <a href="/">
+                <h1>(︶︹︶)</h1>
+            </a>
+            <p class="_right"><label v-bind:class="{ _bold: confirmations }"><input type="checkbox" value="confirmations" v-model="confirmations">confirmations</label></p>
+        </div>
+        <ul>
+            <li v-for="(post, index) in posts">
+                <div class="cell _bg_white">
+                    <h2 v-if="visibility[index]" @click="_edit(index)">{{post.title}}</h2>
+                    <input v-if="!visibility[index]" type="text" v-model="posts[index].title" @keyup.enter="_edited(index)">
+                    <p v-if="visibility[index]" @click="_edit(index)">{{post.text}}</p>
+                    <input v-if="!visibility[index]" type="text" v-model="posts[index].text" @keyup.enter="_edited(index)">
+                </div>
+                <div class="cell _bg_tran">
+                    <button @click="_delete(index)" class="btn_del">Delete</button>
+                </div>
+            </li>
+            <button class="btn_new" @click="_add()">new post</button> 
+        </ul>
+        <div class="_center">
+            <p class="copy">grumpy-editor | 11.04.2018</p>
+        </div>
+    </div>
+</body>
+</html>
+
+<script src="vue.index.js"></script>
+<script>
+    $('button').eq(0).css("border-top-right-radius", "10px");
+    $('.cell').eq(0).css("border-top-left-radius", "10px");
+</script>
